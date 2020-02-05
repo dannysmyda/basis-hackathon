@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link data-require="bootstrap-css@3.3.6" data-semver="3.3.6" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
+    <link data-require="bootstrap-treeview.js@1.2.0" data-semver="1.2.0" rel="stylesheet" href="bootstrap-treeview.css" />
+    <script data-require="bootstrap-treeview.js@1.2.0" data-semver="1.2.0" src="bootstrap-treeview.js"></script>
+    <link rel="stylesheet" href="bootstrap-treeview.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script data-require="jquery@*" data-semver="2.2.0" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script data-require="bootstrap.js@*" data-semver="3.3.6" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bootstrap-treeview.js"></script>
+    <script type="text/javascript">
+    var tree = [{
+  text: "Parent 1",
+  color: "#428bca",
+  icon: 'glyphicon glyphicon-folder-close',
+  selectedIcon: 'glyphicon glyphicon-folder-open',
+  selectable: false,
+  //nodeIcon: 'glyphicon glyphicon-bookmark',
+  nodes : []
+}];
+
+
+
+$(document).ready(function(){
+$('#tree').treeview({
+  showTags: true,
+  color: "#428bca",
+  expandIcon: 'glyphicon glyphicon-chevron-right',
+  collapseIcon: 'glyphicon glyphicon-chevron-down',
+  data:tree
+});
+
+// $('button.btn-primary').on('click',function(){
+//   tree.push({text:'Parent '+(tree.length+1)});
+//
+//   $('#test').treeview({
+//     color: "#428bca",
+//     expandIcon: 'glyphicon glyphicon-chevron-right',
+//     collapseIcon: 'glyphicon glyphicon-chevron-down',
+//     nodeIcon: 'glyphicon glyphicon-bookmark',
+//     data:tree
+//   });
+//
+// });
+});
+
+
+  </script>
+  </head>
+
+  <body>
+    <h1>Sleuthkit File Content Viewer</h1>
+    <div id="tree"></div>
+  </body>
+
+</html>
