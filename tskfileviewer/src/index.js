@@ -6,16 +6,19 @@ import TSKTreeView from "./TSKTreeView";
 /**
  * Bootstrap ReactJS
  */
-
-const getRootObjects = async () => {
-    //In the future, this TreeView page would be boostrapped with all Cases.
-    const response = await fetch("http://localhost:8080/v1/cases/test-datasources-endpoint_20200128_180031/files/13580")
-    const json = await response.json();
-    ReactDOM.render(<TSKTreeView key = {json.id}
-         objectId = {json.id.toString()} 
-         name = {json.name} 
-         childrenCount = {json.childrenCount} 
-         isFolder = {json.isDir}/>, document.getElementById("root"));
-}
-
-getRootObjects();
+fetch(
+  "http://localhost:8080/v1/cases/test-datasources-endpoint_20200128_180031/files/13580"
+)
+  .then(response => response.json())
+  .then(response => {
+    ReactDOM.render(
+      <TSKTreeView
+        key={response.id}
+        objectId={response.id.toString()}
+        name={response.name}
+        childrenCount={response.childrenCount}
+        isFolder={response.isDir}
+      />,
+      document.getElementById("root")
+    );
+  });
