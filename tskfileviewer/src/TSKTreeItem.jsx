@@ -21,9 +21,13 @@ class TSKTreeItem extends Component {
     fetch("http://localhost:8080/v1/cases/test-datasources-endpoint_20200128_180031/files?parentID="+this.props.objectId)
      .then((response) => {
       return response.json();
-    }).then((treeItems) => {
-      console.log(treeItems);
-      this.setState({children : treeItems});
+    }).then((response) => {
+      //Sort the responses by the isDir attribute. That way, all folders show before files.
+      response.sort((x, y) => {
+        return (x.isDir === y.isDir) ? 0 : x.isDir ? -1 : 1;
+      });
+      console.log(response);
+      this.setState({children : response});
     });
   }
 
@@ -35,7 +39,11 @@ class TSKTreeItem extends Component {
         onClick = {this.handleOnClick}
       >
         {this.state.children.map(response => 
-          <TSKTreeItem key = {response.id} objectId = {response.id.toString()} name = {response.name} childrenCount = {response.childrenCount} isFolder = {response.isDir}/>
+          <TSKTreeItem key = {response.id} 
+                       objectId = {response.id.toString()} 
+                       name = {response.name} 
+                       childrenCount = {response.childrenCount} 
+                       isFolder = {response.isDir}/>
         )}
       </TreeItem>
     );

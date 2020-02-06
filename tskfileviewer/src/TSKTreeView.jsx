@@ -9,25 +9,17 @@ import TSKTreeItem from "./TSKTreeItem";
 class TSKTreeView extends Component {
 
   constructor(props) {
-    super(props)
-    this.state = {children : []};
-  }
-
-  handleNodeToggle = (event, nodes) => {
-    console.log("Tree view has already toggled the node");
-
+    super(props);
   }
 
   render() {
     return (
-        <TreeView
-          onNodeToggle = {this.handleNodeToggle}
-        >
-          <TSKTreeItem
-            key = "13580"
-            objectId = "13580"
-            name = "abc"
-          />
+        <TreeView>
+            {<TSKTreeItem key = {this.props.key} 
+                          objectId = {this.props.objectId} 
+                          name = {this.props.name} 
+                          childrenCount = {this.props.childrenCount} 
+                          isFolder = {this.props.isFolder}/>}
         </TreeView>
     );
   }
