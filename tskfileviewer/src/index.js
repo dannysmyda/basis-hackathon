@@ -13,7 +13,6 @@ fetch(
   .then(response => {
     ReactDOM.render(
       <TSKTreeView
-        key={response.id}
         objectId={response.id.toString()}
         name={response.name}
         childrenCount={response.childrenCount}

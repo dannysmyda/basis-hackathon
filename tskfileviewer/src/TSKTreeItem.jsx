@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import TreeItem from "@material-ui/lab/TreeItem";
 
 import React, { Component } from "react";
@@ -7,7 +8,6 @@ import React, { Component } from "react";
 class TSKTreeItem extends Component {
   constructor(props) {
     super(props);
-    this.state = { children: [] };
     if (this.props.childrenCount > 0) {
       this.state = { children: [{ id: "x", name: "Loading..." }] };
       fetch(
@@ -15,6 +15,7 @@ class TSKTreeItem extends Component {
           this.props.objectId
       )
         .then(response => response.json())
+        .then(response => response.filter(r => r.name != "." && r.name != ".."))
         .then(response => {
           response.sort((x, y) => {
             return x.isDir === y.isDir ? 0 : x.isDir ? -1 : 1;
@@ -24,7 +25,13 @@ class TSKTreeItem extends Component {
         .then(response => {
           this.setState({ children: response });
         });
+    } else {
+      this.state = { children: [] };
     }
+  }
+
+  componentWillUnmount() {
+    console.log("I'm unmounting.");
   }
 
   render() {
@@ -32,7 +39,18 @@ class TSKTreeItem extends Component {
       <TreeItem
         key={this.props.objectId}
         nodeId={this.props.objectId}
-        label={this.props.name}
+        label={
+          <div>
+            <span style={{ marginRight: 10 }}>{this.props.name}</span>
+            {this.props.childrenCount > 0 && (
+              <span
+                style={{ display: "inline", float: "right", marginRight: 10 }}
+              >
+                {this.props.childrenCount}
+              </span>
+            )}
+          </div>
+        }
       >
         {this.state.children.map(response => (
           <TSKTreeItem
